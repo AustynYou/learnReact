@@ -1,9 +1,9 @@
-import JsxPractice from "./components/JsxPractice";
+import IterationSample from './components/iterationSample';
 
 function App() {
   return (
     <>
-      <JsxPractice />
+      <IterationSample />
     </>
   );
 }
