@@ -23,7 +23,10 @@ function JsxPractice(){
       <br />
       <input />
 
-      <MyComponent name="리액트" name2="리액트2"/>
+      <MyComponent name="리액트" name2="리액트2">
+        <button>children 입니다.</button>
+        <input type="file" />
+      </MyComponent>
     </>
   );
 }
