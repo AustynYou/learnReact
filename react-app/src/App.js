@@ -1,9 +1,9 @@
-import IterationSample from './components/iterationSample';
-import Mount
+import Flex from "./components/Flex";
+
 function App() {
   return (
     <>
-      <IterationSample />
+      <Flex />
     </>
   );
 }
