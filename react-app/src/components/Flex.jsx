@@ -4,9 +4,9 @@ const Flex = () => {
   return (
     <Parent>
       <Box />
-      <Box borderBox/>
+      <Box borderBox />
       <Box />
-     </Parent>
+    </Parent>
   );
 };
 
@@ -20,7 +20,7 @@ const Box = styled.div`
   height: 100px;
   margin: 20px;
   padding: 50px;
-  box-sizing: ${({borderBox}) => borderBox && "border-box"};
+  box-sizing: ${({ borderBox }) => borderBox && "border-box"};
 `;
 
 export default Flex;
