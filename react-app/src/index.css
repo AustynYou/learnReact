@@ -19,3 +19,28 @@ code {
   font-weight: bold;
   padding: 16px;
 }
+
+.SassComponent .box {
+  background: red;
+}
+.SassComponent .box .inner {
+  color: blue;
+}
+
+.box + .box {
+  margin-left: 10px;
+}
+/* .SassComponent {
+  .box {
+    background: red;
+    .inner {
+      color: blue;
+    }
+    & + & {
+      margin-left: 10px;
+    }
+    &:hover{
+      background: blue;
+    }
+  }
+} */

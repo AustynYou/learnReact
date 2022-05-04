@@ -1,9 +1,9 @@
-import Flex from "./components/Flex";
+import TodoTemplate from './components/Todo/TodoTemplate';
 
 function App() {
   return (
     <>
-      <Flex />
+      <TodoTemplate />
     </>
   );
 }
