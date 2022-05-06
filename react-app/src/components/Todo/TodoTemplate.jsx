@@ -1,38 +1,40 @@
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 
+import Item from './Item';
+import Form from './Form';
+
+
 const TodoTemplate = () => {
+  const [list, setList] = useState([]);
+  const nextId = useRef(1);
+
+  const handleSubmit = (text) => {
+    const newList = [...list, { id: nextId.current, text }];
+    // newList.push(text)
+    setList(newList);
+    nextId.current++;
+  };
+
+  const handleDelete = (deleteId) => {
+    const newList = list.filter(item=>item.id !== deleteId);
+    setList(newList);
+  };
+
   return   (
-  <Layout>
-    <Container>
-      <Title>일정관리</Title>
-        <form>
-          <InputWrapper>
-            <InputText placeholder='할 일을 입력하세요'/>
-              <BtnSubmit>입력</BtnSubmit>
-          </InputWrapper>
-        </form>
+    <Layout>
+      <Container>
+        <Title>일정관리</Title>
+        <Form onSubmit={handleSubmit} />
         <List>
-          <Item>
-            <label>
-              <input type="checkbox" />
-              <Content>리액트의 기초 알아보기</Content>
-            </label>
-          </Item>
-          <Item>
-            <label>
-              <input type="checkbox" />
-              <Content>리액트의 기초 알아보기</Content>
-            </label>
-          </Item>
-          <Item>
-            <label>
-              <input type="checkbox" />
-              <Content>리액트의 기초 알아보기</Content>
-            </label>
-          </Item>
+          {list.map((item)=>(
+              <Item 
+                item={item} onDelete={handleDelete} key={item.id}
+              />
+            ))}
         </List>
-    </Container>
-  </Layout>
+      </Container>
+    </Layout>
   );
 };
 
@@ -56,43 +58,13 @@ const Title = styled.div`
 
 `;
 
-const InputWrapper = styled.div`
-  display: flex;
-`;
-const InputText = styled.input`
-  flex: 1;
-  background: #000;
-  color: #fff;
-  border: none;
-  height: 40px;
-  padding: 0 10px;
-  ::placeholder{
-    color: #dee2e6;
-  }
-`;
-const BtnSubmit = styled.button`
-  width: 50px;
-  border: none;
-  background: #dee2e6;
-  cursor: pointer;
-`;
-
 const List = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
   min-height: 300px;
   background: #fff;
-`;
-const Item = styled.li`
-  height: 40px;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-`;
-const Content = styled.span`
-  margin-left: 15px;
-
+  
 `;
 
 export default TodoTemplate;
