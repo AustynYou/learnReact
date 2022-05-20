@@ -1,9 +1,8 @@
-import TodoTemplate from './components/Todo/TodoTemplate';
-
+import Axios from "./components/Axios";
 function App() {
   return (
     <>
-      <TodoTemplate />
+      <Axios />
     </>
   );
 }
