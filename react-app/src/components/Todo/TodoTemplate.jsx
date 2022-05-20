@@ -10,7 +10,7 @@ const TodoTemplate = () => {
   const nextId = useRef(1);
 
   const handleSubmit = (text) => {
-    const newList = [...list, { id: nextId.current, text }];
+    const newList = [...list, { id: nextId.current, text, isChecked: false }];
     // newList.push(text)
     setList(newList);
     nextId.current++;
@@ -21,6 +21,14 @@ const TodoTemplate = () => {
     setList(newList);
   };
 
+  const handleChecked = (id) => {
+    const newList = list.map((item)=>{
+      return item.id === id  ?  { ...item, isChecked: !item.isChecked } : item;
+      
+    });
+    setList(newList);
+  }
+
   return   (
     <Layout>
       <Container>
@@ -29,7 +37,10 @@ const TodoTemplate = () => {
         <List>
           {list.map((item)=>(
               <Item 
-                item={item} onDelete={handleDelete} key={item.id}
+                item={item} 
+                onDelete={handleDelete} 
+                onChecked={handleChecked} 
+                key={item.id}
               />
             ))}
         </List>
