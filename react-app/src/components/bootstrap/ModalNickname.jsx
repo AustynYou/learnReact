@@ -2,7 +2,7 @@ import { useState } from "react";
 import useBodyOverflowHidden from "../../hooks/useBodyOverflowHidden";
 import styled from "styled-components";
 
-const ModalFirst = ({ onClose, onSubmit }) => {
+const ModalNickname = ({ onClose, onSubmit }) => {
   useBodyOverflowHidden();
   const [text, setText] = useState("");
   const handleSubmit = () => {
@@ -13,7 +13,7 @@ const ModalFirst = ({ onClose, onSubmit }) => {
     <>
       <Backdrop onClick={onClose} />
       <Container>
-        <h2>이름 바꾸기</h2>
+        <h2>닉네임 바꾸기</h2>
         <Main>
           <input value={text} onChange={(e) => setText(e.target.value)} />
         </Main>
@@ -51,4 +51,4 @@ const Footer = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-export default ModalFirst;
+export default ModalNickname;

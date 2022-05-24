@@ -1,31 +1,43 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import CarouselList1 from "./CarouselList1";
 import CarouselList2 from "./CarouselList2";
 
 const Carousel = ({ data, type }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [flag, setFlag] = useState(true);
+  const handleClick = useCallback(
+    (i) => {
+      if (!flag) return;
+      const firstIndex = 0;
+      const lastIndex = data.length - 1;
 
-  const handleClick = (i) => {
-    // if (i === -1 && activeIndex === 0) {
-    //   setActiveIndex(data.length - 1);
-    // } else if (i === 1 && activeIndex === data.length - 1) {
-    //   setActiveIndex(0);
-    // } else {
-    //   setActiveIndex(activeIndex + i);
-    // }
+      let nextIndex = activeIndex + i;
+      if (nextIndex > lastIndex) {
+        nextIndex = firstIndex;
+      } else if (nextIndex < firstIndex) {
+        nextIndex = lastIndex;
+      }
+      console.log(nextIndex);
+      setActiveIndex(nextIndex);
+    },
+    [activeIndex, flag]
+  );
+  useEffect(() => {
+    setFlag(false);
+    setTimeout(() => {
+      setFlag(true);
+    }, 1000);
+  }, [activeIndex]);
 
-    const firstIndex = 0;
-    const lastIndex = data.length - 1;
-
-    let nextIndex = activeIndex + i;
-    if (nextIndex > lastIndex) {
-      nextIndex = firstIndex;
-    } else if (nextIndex < firstIndex) {
-      nextIndex = lastIndex;
-    }
-    setActiveIndex(nextIndex);
-  };
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      handleClick(1);
+    }, 3000);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [handleClick]);
 
   return (
     <Container>
