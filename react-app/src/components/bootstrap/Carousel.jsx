@@ -18,7 +18,6 @@ const Carousel = ({ data, type }) => {
       } else if (nextIndex < firstIndex) {
         nextIndex = lastIndex;
       }
-      console.log(nextIndex);
       setActiveIndex(nextIndex);
     },
     [activeIndex, flag]
