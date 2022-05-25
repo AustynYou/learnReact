@@ -21,3 +21,14 @@ export const getBookList = async (params) => {
   });
   return data;
 };
+
+export const getBookDetail = async (params) => {
+  const { data } = await axios.get("/v1/search/book_adv.json", {
+    headers: {
+      "X-Naver-Client-Id": "ytDeDWg6uJdbzT8tzos9",
+      "X-Naver-Client-Secret": "VyoOPG5V_A",
+    },
+    params,
+  });
+  return data;
+};
