@@ -4,8 +4,11 @@ import styled from "styled-components";
 import { getMovieList } from "../../apis";
 import MovieList from "../organisms/MovieList";
 import { countryList, genreList } from "../../data/index";
+import Pagination from "../organisms/Pagination";
 
 const Movie = () => {
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [text, setText] = useState("");
   const [country, setCountry] = useState("ALL");
   const [genre, setGenre] = useState("ALL");
@@ -13,11 +16,11 @@ const Movie = () => {
 
   useEffect(() => {
     searchMovieList();
-  }, [country, genre]);
+  }, [country, genre, page]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setPage(1);
     searchMovieList();
   };
 
@@ -26,12 +29,17 @@ const Movie = () => {
     // const params = { query: text, country };
     // if (country === "ALL") delete params.country;
 
-    const params = { query: text };
+    // page = 1 2 3 ... 10 11
+    // start = 1 11 21 ..91 101
+    const start = page * 10 - 9;
+
+    const params = { query: text, start };
     if (country !== "ALL") params.country = country;
     if (genre !== "ALL") params.genre = genre;
 
-    const { items } = await getMovieList(params);
+    const { items, total } = await getMovieList(params);
     setMovieList(items);
+    setTotal(total);
   };
   return (
     <Layout>
@@ -61,6 +69,11 @@ const Movie = () => {
         <button>검색</button>
       </Form>
       <MovieList data={movieList} />
+      <Pagination
+        nowPage={page}
+        total={total}
+        onPageChange={(page) => setPage(page)}
+      />
     </Layout>
   );
 };
