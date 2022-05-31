@@ -9,6 +9,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import qs from "qs";
 
+const display = 10;
 const Book = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -42,17 +43,16 @@ const Book = () => {
   }, [query, page]);
 
   const searchList = async () => {
-    if (query === "") return;
+    if (!query) return;
     // const params = { query: text, country };
     // if (country === "ALL") delete params.country;
 
     // page = 1 2 3 ... 10 11
     // start = 1 11 21 ..91 101
-    const start = page * 10 - 9;
+    // const start = page * 10 - 9;
+    const start = (page - 1) * display + 1;
 
-    const params = { query, start };
-
-    const { items, total } = await getBookList(params);
+    const { items, total } = await getBookList({ query, start });
     setBookList(items);
     setTotal(total);
 
