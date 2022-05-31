@@ -1,37 +1,45 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
+import BookLists from "../templates/Book/BookList";
+
 import { getBookList } from "../../apis";
-import BookLists from "../organisms/BookList";
+import { useState, useEffect } from "react";
 import Pagination from "../organisms/Pagination";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import qs from "qs";
 
 const Book = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const search = location.search;
+  const { search } = useLocation();
 
   const [text, setText] = useState("");
   const [query, setQuery] = useState("");
   const [BookList, setBookList] = useState([]);
-  const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const queryString = qs.parse(search.slice(1));
-    console.log(queryString.query);
-  }, []);
+    const reset = () => {
+      setText("");
+      setPage(1);
+      setQuery("");
+      setTotal(0);
+      setBookList([]);
+    };
+    const { query, page } = qs.parse(search.slice(1));
+    if (query) {
+      setQuery(query);
+      setText(query);
+      if (page) setPage(+page);
+    } else {
+      reset();
+    }
+  }, [search]);
 
   useEffect(() => {
     searchList();
-  }, [page, query]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setPage(1);
-    setQuery(text);
-  };
+  }, [query, page]);
 
   const searchList = async () => {
     if (query === "") return;
@@ -48,8 +56,14 @@ const Book = () => {
     setBookList(items);
     setTotal(total);
 
-    const search = qs.stringify({ query });
+    const search = qs.stringify({ query, page });
     navigate({ search });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setPage(1);
+    setQuery(text);
   };
 
   return (

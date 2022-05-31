@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { getMovieList } from "../../apis";
-import MovieList from "../organisms/MovieList";
+import MovieList from "../templates/Movie/MovieList";
 import { countryList, genreList } from "../../data/index";
 import Pagination from "../organisms/Pagination";
 
