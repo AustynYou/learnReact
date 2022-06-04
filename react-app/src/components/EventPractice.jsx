@@ -5,17 +5,17 @@ const EventPractice = () => {
   // const [message, setMessage] = useState("");
   // const onChangeUsername = (e) => setUsername(e.target.value);
   // const onChangeMessage = (e) => setMessage(e.target.value);
-  
+
   const [form, setForm] = useState({
     username: "",
-    message: ""
+    message: "",
   });
 
   const { username, message } = form;
   const onChange = (e) => {
-    const nextForm = { 
+    const nextForm = {
       ...form,
-      [e.target.name]: (e).target.value
+      [e.target.name]: e.target.value,
     };
     setForm(nextForm);
   };
@@ -33,23 +33,22 @@ const EventPractice = () => {
     <div>
       <h1>이벤트 연습</h1>
       <h2>{message}</h2>
-      <input 
-        type="text" 
-        name="username" 
-        placeholder="사용자명" 
+      <input
+        type="text"
+        name="username"
+        placeholder="사용자명"
         onChange={onChange}
         value={username}
       />
-      <input 
-        type="text" 
-        name="message" 
-        placeholder="아무거나 입력해 보세요" 
+      <input
+        type="text"
+        name="message"
+        placeholder="아무거나 입력해 보세요"
         onChange={onChange}
         onKeyPress={onKeyPress}
         value={message}
       />
-      <button 
-        onClick={onClick}>확인</button>
+      <button onClick={onClick}>확인</button>
     </div>
   );
 };

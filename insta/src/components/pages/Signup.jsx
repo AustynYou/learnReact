@@ -31,6 +31,11 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const { user_name, password, passwordConfirm } = form;
+
+    if (user_name.length < 4) return alert("아이디를 4글자 이상 입력하세요.");
+    if (password !== passwordConfirm) return alert("비밀번호를 확인하세요.");
+
     createUser(form);
   };
 

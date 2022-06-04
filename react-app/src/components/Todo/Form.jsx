@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
 const TodoForm = ({ onSubmit }) => {
   const [text, setText] = useState("");
@@ -12,14 +12,15 @@ const TodoForm = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-            <InputWrapper>
-              <InputText 
-              value={text}
-              onChange={(e) => setText(e.target.value)} 
-              placeholder="할 일을 입력하세요"/>
-              <BtnSubmit>입력</BtnSubmit>
-            </InputWrapper>
-          </form>
+      <InputWrapper>
+        <InputText
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="할 일을 입력하세요"
+        />
+        <BtnSubmit>입력</BtnSubmit>
+      </InputWrapper>
+    </form>
   );
 };
 
@@ -33,7 +34,7 @@ const InputText = styled.input`
   border: none;
   height: 40px;
   padding: 0 10px;
-  ::placeholder{
+  ::placeholder {
     color: #dee2e6;
   }
 `;
