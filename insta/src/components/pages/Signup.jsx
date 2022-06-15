@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { createUser } from "../../apis/user";
+import { useNavigate } from "react-router-dom";
 import {
   PageWrapper,
   Main,
@@ -14,21 +15,16 @@ import {
 } from "../atoms/login";
 
 const Signup = () => {
-  const [form, setForm] = useState({
-    name: "",
-    user_name: "",
-    password: "",
-    passwordConfirm: "",
-  });
+  const navigate = useNavigate();
+  const [form, setForm] = useState({});
 
-  const { name, user_name, password, passwordConfirm } = form;
   const handleChange = (e) => {
     const { name, value } = e.target;
     const newForm = { ...form, [name]: value };
     setForm(newForm);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { user_name, password, passwordConfirm } = form;
@@ -36,7 +32,15 @@ const Signup = () => {
     if (user_name.length < 4) return alert("아이디를 4글자 이상 입력하세요.");
     if (password !== passwordConfirm) return alert("비밀번호를 확인하세요.");
 
-    createUser(form);
+    const { success, message } = await createUser(form);
+
+    if (success) {
+      alert("환영합니다.");
+      navigate("/login");
+    } else {
+      alert(message);
+      setForm((prev) => ({ ...prev, user_name: "" }));
+    }
   };
 
   return (
@@ -51,26 +55,23 @@ const Signup = () => {
             <Form onSubmit={handleSubmit}>
               <InputText
                 name="name"
-                value={name}
                 placeholder="성명"
                 onChange={handleChange}
               />
               <InputText
+                value={form.user_name}
                 name="user_name"
-                value={user_name}
                 placeholder="사용자 이름"
                 onChange={handleChange}
               />
               <InputText
                 name="password"
-                value={password}
                 placeholder="비밀번호"
                 onChange={handleChange}
                 type="password"
               />
               <InputText
                 name="passwordConfirm"
-                value={passwordConfirm}
                 placeholder="비밀번호 확인"
                 onChange={handleChange}
                 type="password"
