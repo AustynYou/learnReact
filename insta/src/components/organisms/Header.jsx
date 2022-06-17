@@ -1,9 +1,14 @@
-import styled from "styled-components";
+import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import styled from "styled-components";
 
-import { ReactComponent as Home } from "../../assets/images/icons/home.svg";
+import ModalAddPost from "./ModalAddPost";
+
+import { ReactComponent as ImgHome } from "../../assets/images/icons/home.svg";
+import { ReactComponent as ImgAddPost } from "../../assets/images/icons/add-post.svg";
 
 const Header = () => {
+  const [isModalAddPost, setIsModalAddPost] = useState(false);
   return (
     <>
       <Container>
@@ -15,11 +20,19 @@ const Header = () => {
             <InputSearch />
           </Search>
           <Nav>
-            <Home />
+            <BtnNav>
+              <ImgHome />
+            </BtnNav>
+            <BtnNav onClick={() => setIsModalAddPost(true)}>
+              <ImgAddPost />
+            </BtnNav>
           </Nav>
         </Main>
       </Container>
       <Outlet />
+      {isModalAddPost && (
+        <ModalAddPost onClose={() => setIsModalAddPost(false)} />
+      )}
     </>
   );
 };
@@ -46,5 +59,11 @@ const Search = styled.div``;
 const InputSearch = styled.input``;
 
 const Nav = styled.nav``;
+const BtnNav = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin: 0 5px;
+`;
 
 export default Header;
